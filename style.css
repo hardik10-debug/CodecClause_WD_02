@@ -1,0 +1,70 @@
+/* style.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #FCF6F5;
+}
+
+header {
+  background-color: #990011;
+  padding: 5px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.color-picker,
+.gradient-type,
+.gradient-angle {
+  margin: 0 1rem;
+}
+
+#background-preview {
+  width: 100%;
+  height: 600px;
+  background: linear-gradient(90deg, #ff0000, #0000ff);
+}
+
+#download-btn {
+  background-color: #ac989a;
+  border: none;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  display: inline-block;
+  font-size: medium;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 600px) {
+  .controls {
+    flex-direction: column;
+  }
+
+  .color-picker,
+  .gradient-type,
+  .gradient-angle {
+    margin: 1rem 0;
+  }
+}

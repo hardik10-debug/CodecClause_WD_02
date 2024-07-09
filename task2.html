@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Background Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Background Generator</h1>
+  </header>
+  <div class="container">
+    <div class="controls">
+      <div class="color-picker">
+        <label for="color1">Color 1:</label>
+        <input type="color" id="color1" value="#ff0000">
+        <label for="color2">Color 2:</label>
+        <input type="color" id="color2" value="#0000ff">
+      </div>
+      <div class="gradient-type">
+        <label for="gradient-type">Gradient Type:</label>
+        <select id="gradient-type">
+          <option value="linear-gradient">Linear Gradient</option>
+          <option value="radial-gradient">Radial Gradient</option>
+          <option value="conic-gradient">Conic Gradient</option>
+        </select>
+      </div>
+      <div class="gradient-angle">
+        <label for="gradient-angle">Gradient Angle:</label>
+        <input type="range" id="gradient-angle" min="0" max="360" value="90">
+        <span id="angle-value">90°</span>
+      </div>
+      <button id="download-btn">Download</button>
+    </div>
+    <div class="preview">
+      <div id="background-preview"></div>
+    </div>
+  </div>
+
+  <script>
+    // Get the necessary DOM elements
+    const color1 = document.getElementById('color1');
+    const color2 = document.getElementById('color2');
+    const gradientType = document.getElementById('gradient-type');
+    const gradientAngle = document.getElementById('gradient-angle');
+    const angleValue = document.getElementById('angle-value');
+    const backgroundPreview = document.getElementById('background-preview');
+    const downloadBtn = document.getElementById('download-btn');
+
+    // Update the background preview
+    // Update the background preview
+function updateBackground() {
+  const color1Value = color1.value;
+  const color2Value = color2.value;
+  const gradientTypeValue = gradientType.value;
+  const gradientAngleValue = gradientAngle.value;
+
+  let backgroundStyle;
+
+  switch (gradientTypeValue) {
+    case 'linear-gradient':
+      backgroundStyle = `linear-gradient(${gradientAngleValue}deg, ${color1Value}, ${color2Value})`;
+      break;
+      case 'radial-gradient':
+  backgroundStyle = `radial-gradient(circle closest-side, ${color1Value}, ${color2Value})`;
+  break;
+    case 'conic-gradient':
+      backgroundStyle = `conic-gradient(from ${gradientAngleValue}deg, ${color1Value}, ${color2Value})`;
+      break;
+    default:
+      backgroundStyle = `linear-gradient(90deg, ${color1Value}, ${color2Value})`;
+  }
+
+  backgroundPreview.style.background = backgroundStyle;
+  angleValue.textContent = `${gradientAngleValue}°`;
+}
+    // Update the background preview when the user changes the inputs
+    color1.addEventListener('input', updateBackground);
+    color2.addEventListener('input', updateBackground);
+    gradientType.addEventListener('change', updateBackground);
+    gradientAngle.addEventListener('input', updateBackground);
+
+    // Download the background as an image
+    // Download the background as an image
+// Download the background as an image
+// Download the background as an image
+// Download the background as an image
+downloadBtn.addEventListener('click', () => {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = 800;
+  canvas.height = 600;
+
+  const color1Value = color1.value;
+  const color2Value = color2.value;
+  const gradientTypeValue = gradientType.value;
+  const gradientAngleValue = gradientAngle.value;
+
+  switch (gradientTypeValue) {
+    case 'linear-gradient':
+      const linearGradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+      linearGradient.addColorStop(0, color1Value);
+      linearGradient.addColorStop(1, color2Value);
+      ctx.fillStyle = linearGradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      break;
+    case 'radial-gradient':
+      const radialGradient = ctx.createRadialGradient(
+        canvas.width / 2,
+        canvas.height / 2,
+        0,
+        canvas.width / 2,
+        canvas.height / 2,
+        Math.max(canvas.width, canvas.height)
+      );
+      radialGradient.addColorStop(0, color1Value);
+      radialGradient.addColorStop(1, color2Value);
+      ctx.fillStyle = radialGradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      break;
+    case 'conic-gradient':
+      ctx.save();
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      ctx.rotate((gradientAngleValue * Math.PI) / 180);
+      const conicGradient = ctx.createConicGradient(0, 0);
+      conicGradient.addColorStop(0, color1Value);
+      conicGradient.addColorStop(1, color2Value);
+      ctx.fillStyle = conicGradient;
+      ctx.beginPath();
+      ctx.arc(0, 0, Math.max(canvas.width, canvas.height) / 2, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.restore();
+      break;
+    default:
+      const defaultGradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+      defaultGradient.addColorStop(0, color1Value);
+      defaultGradient.addColorStop(1, color2Value);
+      ctx.fillStyle = defaultGradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+
+  const link = document.createElement('a');
+  link.download = 'background.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+});
+    // Initialize the background preview
+    updateBackground();
+  </script>
+</body>
+</html>
